@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-static-website",
+  "name": "chspride-next-portal",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,8 @@
     "react-dom": "16.13.1"
   },
   "devDependencies": {
-    "serve": "^11.3.2"
+    "@types/react": "^17.0.39",
+    "serve": "^11.3.2",
+    "typescript": "^4.5.5"
   }
 }

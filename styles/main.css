@@ -4,7 +4,7 @@
 
 body {
   background-color: #fbfbfb;
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
 }
 
 h1 {
@@ -180,7 +180,7 @@ h1 {
 }
 
 .button-azure {
-  background: #2980B9;
+  background: #2980b9;
 }
 
 .button-github {
