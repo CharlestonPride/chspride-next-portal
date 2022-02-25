@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const Protected = () => {
-  const providers = ["twitter", "github", "aad"];
+  const providers = ["google"];
   const redirect = " window.location.pathname;"
   const [userInfo, setUserInfo] = useState();
   const [data, setData] = useState();

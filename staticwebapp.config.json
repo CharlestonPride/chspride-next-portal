@@ -5,6 +5,14 @@
       "statusCode": 404
     },
     {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
       "route": "/protected",
       "allowedRoles": ["authenticated"]
     },
@@ -16,5 +24,15 @@
   "navigationFallback": {
     "rewrite": "index.html",
     "exclude": ["*.{png,jpg,gif,svg}", "*.css"]
+  },
+  "auth": {
+    "identityProviders": {
+      "google": {
+        "registration": {
+          "clientIdSettingName": "GOOGLE_CLIENT_ID",
+          "clientSecretSettingName": "GOOGLE_CLIENT_SECRET"
+        }
+      }
+    }
   }
 }

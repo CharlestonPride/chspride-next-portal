@@ -12,6 +12,15 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "documents",
+      "databaseName": "ChsPride",
+      "collectionName": "Directors",
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "partitionKey": "chspride"
     }
   ]
 }
