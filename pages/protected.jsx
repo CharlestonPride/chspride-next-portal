@@ -16,7 +16,7 @@ const Protected = () => {
     (async () => {
       setData(await getData())
     })()
-  })
+  },[])
 
   async function getUserInfo() {
     try {
@@ -34,8 +34,8 @@ const Protected = () => {
 
     async function getData() {
     try {
-      const { text } = await( await fetch(`/api/directors`)).json();
-      return text;
+      return await( await fetch(`/api/directors`)).json();
+
     } catch (error) {
       console.error("No profile could be found");
       return undefined;
