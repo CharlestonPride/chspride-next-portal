@@ -12,6 +12,12 @@ const Protected = () => {
     })();
   }, []);
 
+    useEffect(() => {
+    (async () => {
+      setData(await getData())
+    })()
+  })
+
   async function getUserInfo() {
     try {
       const response = await fetch("/.auth/me");
@@ -24,17 +30,12 @@ const Protected = () => {
     }
   }
 
-  useEffect(() => {
-    (async () => {
-      setData(await getData())
-    })
-  })
+
 
     async function getData() {
     try {
-      const response = await fetch("/api/HttpTrigger1");
-      const payload = await response.json();
-      return payload;
+      const { text } = await( await fetch(`/api/directors`)).json();
+      return text;
     } catch (error) {
       console.error("No profile could be found");
       return undefined;
@@ -65,13 +66,15 @@ const Protected = () => {
       {userInfo && (
         <div>
           <div className="user">
-            <p>Welcome</p>
+            <p>Welcome </p>
             <p>{userInfo && userInfo.userDetails}</p>
-            <p>{userInfo && userInfo.identityProvider}</p>
+
           </div>
         </div>
       )}
-      { data && <div>{data}</div>}
+      
+      <p>results</p>
+      { JSON.stringify(data) }
     </div>
   );
 };
