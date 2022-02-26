@@ -1,5 +1,4 @@
-import "../styles/reset.css";
-import "../styles/main.css";
+import "../styles/globals.scss";
 
 // This default export is required in a new `pages/_app.js` file.
 export default function App({ Component, pageProps }) {
