@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const Protected = () => {
   const providers = ["google"];
-  const redirect = " window.location.pathname;"
+  const redirect = " window.location.pathname;";
   const [userInfo, setUserInfo] = useState();
   const [data, setData] = useState();
 
@@ -12,11 +12,11 @@ const Protected = () => {
     })();
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     (async () => {
-      setData(await getData())
-    })()
-  },[])
+      setData(await getData());
+    })();
+  }, []);
 
   async function getUserInfo() {
     try {
@@ -30,12 +30,9 @@ const Protected = () => {
     }
   }
 
-
-
-    async function getData() {
+  async function getData() {
     try {
-      return await( await fetch(`/api/directors`)).json();
-
+      return await (await fetch(`/api/directors`)).json();
     } catch (error) {
       console.error("No profile could be found");
       return undefined;
@@ -49,17 +46,21 @@ const Protected = () => {
       <ul className="menu-list auth">
         {!userInfo &&
           providers.map((provider) => (
-            <li><a
-              key={provider}
-              href={`/.auth/login/${provider}?post_login_redirect_uri=${redirect}`}
-            >
-              {provider}
-            </a></li>
+            <li>
+              <a
+                key={provider}
+                href={`/.auth/login/${provider}?post_login_redirect_uri=${redirect}`}
+              >
+                {provider}
+              </a>
+            </li>
           ))}
         {userInfo && (
-          <li><a href={`/.auth/logout?post_logout_redirect_uri=${redirect}`}>
-            Logout
-          </a></li>
+          <li>
+            <a href={`/.auth/logout?post_logout_redirect_uri=${redirect}`}>
+              Logout
+            </a>
+          </li>
         )}
       </ul>
 
@@ -68,13 +69,12 @@ const Protected = () => {
           <div className="user">
             <p>Welcome </p>
             <p>{userInfo && userInfo.userDetails}</p>
-
           </div>
         </div>
       )}
-      
+
       <p>results</p>
-      { JSON.stringify(data) }
+      {JSON.stringify(data)}
     </div>
   );
 };

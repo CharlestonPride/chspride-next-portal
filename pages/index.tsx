@@ -2,36 +2,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { LinkGradientButton } from "../components/button";
-
-interface UserInfo {
-  userDetails: string; // email
-  identityProvider: string;
-  userRoles: string[];
-  claims: Claim[];
-}
-
-interface Claim {
-  typ: string;
-  val: string;
-}
-
-function findClaim(typ: string, claims: Claim[]): string {
-  let claim = claims.find((c) => c.typ === typ);
-  return claim?.val;
-}
-
-function getDisplayName(userInfo: UserInfo): string {
-  if (userInfo.claims) {
-    let givenName = findClaim(
-      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname",
-      userInfo.claims
-    );
-    if (!!givenName) {
-      return givenName;
-    }
-  }
-  return userInfo.userDetails;
-}
+import { getDisplayName, UserInfo } from "../utils/user";
 
 const Title = () => {
   return (
@@ -100,7 +71,7 @@ const Home = () => {
                     <div>
                       <LinkGradientButton
                         color="primary"
-                        href="/.auth/login/google?post_login_redirect_uri=/protected"
+                        href="/.auth/login/google?post_login_redirect_uri=/dashboard"
                         className="mx-2"
                       >
                         Login
