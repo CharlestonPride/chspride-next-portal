@@ -41,10 +41,15 @@ const SideNavBarSection = () => {
   );
 };
 
-const Sidebar = ({ children }: PropsWithChildren<{}>) => {
+const Sidebar = ({
+  children,
+  pinned,
+}: PropsWithChildren<{ pinned: Boolean }>) => {
   return (
     <aside
-      className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+      className={`sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ${
+        pinned ? "bg-white" : ""
+      }`}
       id="sidenav-main"
     >
       <div className="sidenav-header">

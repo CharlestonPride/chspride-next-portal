@@ -4,9 +4,10 @@ import { getDisplayName, UserInfo } from "../../utils/user";
 
 interface NavProps {
   title: string;
+  onToggle: any;
 }
 
-const Nav = ({ title }: NavProps) => {
+const Nav = ({ title, onToggle }: NavProps) => {
   const [userInfo, setUserInfo] = useState<UserInfo>();
 
   useEffect(() => {
@@ -62,9 +63,9 @@ const Nav = ({ title }: NavProps) => {
             </li>
             <li className="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a
-                href="javascript:;"
                 className="nav-link text-body p-0"
                 id="iconNavbarSidenav"
+                onClick={() => onToggle()}
               >
                 <div className="sidenav-toggler-inner">
                   <i className="sidenav-toggler-line"></i>
