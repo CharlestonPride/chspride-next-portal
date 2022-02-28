@@ -48,7 +48,7 @@ const Home = () => {
                     <div>
                       <LinkGradientButton
                         color="primary"
-                        href="/protected"
+                        href="/dashboard"
                         className="mx-2"
                       >
                         Continue

@@ -17,6 +17,18 @@
       "allowedRoles": ["authenticated"]
     },
     {
+      "route": "/applications/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/team/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/dashboard",
+      "allowedRoles": ["authenticated"]
+    },
+    {
       "route": "/api/directors/*",
       "allowedRoles": ["authenticated"]
     }
