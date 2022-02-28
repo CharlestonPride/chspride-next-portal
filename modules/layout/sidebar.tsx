@@ -12,7 +12,7 @@ interface NavItem {
 
 const SideNavBarItem = ({ label, icon, href }: NavItem) => {
   const router = useRouter();
-  const active = router.asPath === href + "/";
+  const active = router.asPath.startsWith(href);
   return (
     <li className="nav-item">
       <Link href={href} passHref>

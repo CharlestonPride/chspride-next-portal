@@ -7,7 +7,10 @@ import { PropsWithChildren, useState } from "react";
 import Nav from "./navbar";
 import { Sidebar, SideNavBarItem } from "./sidebar";
 
-const Layout = ({ children, title }: PropsWithChildren<{ title: string }>) => {
+const Layout = ({
+  children,
+  crumbs,
+}: PropsWithChildren<{ crumbs: string[] }>) => {
   const [pinned, setPinned] = useState(false);
   const handleToggle = () => setPinned(!pinned);
 
@@ -27,7 +30,7 @@ const Layout = ({ children, title }: PropsWithChildren<{ title: string }>) => {
         <SideNavBarItem label="Team" href="/team" icon={faUsers} />
       </Sidebar>
       <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
-        <Nav title={title} onToggle={handleToggle} />
+        <Nav crumbs={crumbs} onToggle={handleToggle} />
         {children}
       </main>
     </body>

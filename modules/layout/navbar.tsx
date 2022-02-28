@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { getDisplayName, UserInfo } from "../../utils/user";
 
 interface NavProps {
-  title: string;
-  onToggle: any;
+  crumbs: string[];
+  onToggle: () => void;
 }
 
-const Nav = ({ title, onToggle }: NavProps) => {
+const Nav = ({ crumbs, onToggle }: NavProps) => {
   const [userInfo, setUserInfo] = useState<UserInfo>();
 
   useEffect(() => {
@@ -38,12 +38,14 @@ const Nav = ({ title, onToggle }: NavProps) => {
             <li className="breadcrumb-item text-sm">
               <span className="opacity-5 text-dark">Portal</span>
             </li>
-            <li
-              className="breadcrumb-item text-sm text-dark active"
-              aria-current="page"
-            >
-              {title}
-            </li>
+            {crumbs.map((crumb) => {
+              <li
+                className="breadcrumb-item text-sm text-dark active"
+                aria-current="page"
+              >
+                {crumb}
+              </li>;
+            })}
           </ol>
         </nav>
         <div
