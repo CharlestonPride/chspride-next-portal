@@ -60,12 +60,12 @@ const TeamRow = ({
         )}
       </td>
       <td className="align-middle">
-        <a
-          className="text-secondary font-weight-bold"
+        <button
+          className="btn btn-link mb-0"
           onClick={() => onClick(teamMember.id)}
         >
           Edit
-        </a>
+        </button>
       </td>
     </tr>
   );
@@ -86,7 +86,7 @@ const Team = () => {
 
   async function getData() {
     try {
-      return await (await fetch(`/api/directors`)).json();
+      return await (await fetch(`/api/Directors`)).json();
     } catch (error) {
       console.error("No team members found");
       return undefined;

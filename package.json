@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "swa": "swa start ./out --api-location ./api",
+    "api": "cd api && func start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.3.0",

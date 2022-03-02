@@ -5,8 +5,8 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": ["get"],
-      "route": "directors"
+      "methods": ["post"],
+      "route": "{collection}"
     },
     {
       "type": "http",
@@ -15,10 +15,11 @@
     },
     {
       "type": "cosmosDB",
-      "direction": "in",
-      "name": "documents",
+      "direction": "out",
+      "name": "outputDocument",
       "databaseName": "ChsPride",
-      "collectionName": "Directors",
+      "collectionName": "{collection}",
+      "createIfNotExists": false,
       "connectionStringSetting": "CosmosDbConnectionString",
       "partitionKey": "chspride"
     }
