@@ -1,14 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import {
-  Badge,
-  Card,
-  Col,
-  Container,
-  Dropdown,
-  Row,
-  Table,
-} from "react-bootstrap";
+import { Badge, Card, Col, Row, Table } from "react-bootstrap";
+import { GradientButton, LinkGradientButton } from "../../components/button";
 import Layout from "../../modules/layout/layout";
 import { TeamMember } from "../../types/teamMember";
 
@@ -81,9 +74,6 @@ const Team = () => {
     })();
   }, []);
 
-  const [showInactive, setShowInactive] = useState(false);
-  const toggleInactive = () => setShowInactive(!showInactive);
-
   async function getData() {
     try {
       return await (await fetch(`/api/Directors`)).json();
@@ -93,48 +83,61 @@ const Team = () => {
     }
   }
 
+  const [showInactive, setShowInactive] = useState(false);
+  const toggleInactive = () => setShowInactive(!showInactive);
+
   return (
     <Layout crumbs={["Team"]}>
-      <Container>
-        <Row>
-          <Col>
-            <Card>
-              <Card.Title className="card-header pb-0">Team</Card.Title>
-              <Card.Body>
-                <div className="form-check form-switch">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    onChange={toggleInactive}
-                  ></input>
-                  <label className="form-check-label">Show Inactive</label>
-                </div>
-                <div className="table-responsive p-0">
-                  <Table>
-                    <Head />
-                    <tbody>
-                      {data
-                        ?.filter((a) => showInactive || a.active)
-                        .sort((a) => (a.executive ? -1 : 1))
-                        .map((teamMember: TeamMember) => (
-                          <TeamRow
-                            teamMember={teamMember}
-                            onClick={(id: string) => {
-                              router.push({
-                                pathname: "/team/edit",
-                                query: { id: id },
-                              });
-                            }}
-                          />
-                        ))}
-                    </tbody>
-                  </Table>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col>
+          <Card>
+            <Card.Title>Team</Card.Title>
+            <Card.Body>
+              <div className="form-check form-switch">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  onChange={toggleInactive}
+                ></input>
+                <label className="form-check-label">Show Inactive</label>
+              </div>
+              <div className="table-responsive p-0">
+                <Table>
+                  <Head />
+                  <tbody>
+                    {data
+                      ?.filter((a) => showInactive || a.active)
+                      .sort((a) => (a.executive ? -1 : 1))
+                      .map((teamMember: TeamMember) => (
+                        <TeamRow
+                          key={teamMember.id}
+                          teamMember={teamMember}
+                          onClick={(id: string) => {
+                            router.push({
+                              pathname: "/team/edit",
+                              query: { id: id },
+                            });
+                          }}
+                        />
+                      ))}
+                  </tbody>
+                </Table>
+              </div>
+              {/* <GradientButton
+                color="primary"
+                onClick={() => {
+                  router.push({
+                    pathname: "/team/edit",
+                    query: { id: "new" },
+                  });
+                }}
+              >
+                Add
+              </GradientButton> */}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Layout>
   );
 };

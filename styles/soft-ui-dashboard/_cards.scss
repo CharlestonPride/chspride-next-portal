@@ -1,7 +1,8 @@
 .card {
   box-shadow: $card-box-shadow;
-  .card-header {
-    padding: $card-header-padding;
+  margin-top: $card-spacer-y;
+  .card-title {
+    padding: $card-header-padding $card-header-padding 0 $card-header-padding;
   }
 
   .card-body {

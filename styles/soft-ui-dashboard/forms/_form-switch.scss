@@ -24,8 +24,8 @@
     }
 
     &:checked {
-      border-color: rgba($dark-gradient-state, 0.95);
-      background-color: rgba($dark-gradient-state, 0.95);
+      border-color: rgba($secondary-gradient, 0.95);
+      background-color: rgba($info-gradient-state, 0.95);
     }
   }
 }

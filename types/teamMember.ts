@@ -2,13 +2,15 @@ export interface TeamMember {
   id: string;
   envId: string;
   active: boolean;
+  prefix: string;
   firstName: string;
   lastName: string;
+  suffix: string;
   title: string;
   executive: boolean;
   order: number;
-  dateElected: string;
-  dateElectedToBoard: string;
+  dateElected: Date;
+  dateElectedToBoard: Date;
   image: string;
   pronouns: Pronouns;
   bio: string;

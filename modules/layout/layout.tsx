@@ -4,6 +4,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { PropsWithChildren, useState } from "react";
+import { Container } from "react-bootstrap";
 import Nav from "./navbar";
 import { Sidebar, SideNavBarItem } from "./sidebar";
 
@@ -15,7 +16,7 @@ const Layout = ({
   const handleToggle = () => setPinned(!pinned);
 
   return (
-    <body
+    <div
       className={`g-sidenav-show bg-gray-100 ${
         pinned ? "g-sidenav-pinned" : ""
       }`}
@@ -31,9 +32,9 @@ const Layout = ({
       </Sidebar>
       <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
         <Nav crumbs={crumbs} onToggle={handleToggle} />
-        {children}
+        <Container fluid={true}>{children}</Container>
       </main>
-    </body>
+    </div>
   );
 };
 

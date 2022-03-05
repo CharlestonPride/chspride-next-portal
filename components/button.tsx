@@ -1,33 +1,53 @@
 import Link from "next/link";
 import { ReactNode } from "react";
+import { string } from "yup";
 import { ThemeColors } from "../types";
 
 type ButtonProps = {
   color: ThemeColors;
   children?: ReactNode;
   className?: string;
+  type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 };
 
 type LinkButtonProps = ButtonProps & {
   href: string;
 };
 
-const Button = ({ color, children, className }: ButtonProps) => (
-  <button type="button" className={className + " btn btn-" + color}>
+const Button = ({
+  color,
+  children,
+  className,
+  type = "button",
+}: ButtonProps) => (
+  <button type={type} className={className + " btn btn-" + color}>
     {children}
   </button>
 );
 
-const LinkButton = ({ color, children, href, className }: LinkButtonProps) => (
+const LinkButton = ({
+  color,
+  children,
+  href,
+  className,
+  type = "button",
+}: LinkButtonProps) => (
   <Link href={href} passHref>
-    <button type="button" className={className + " btn btn-" + color}>
+    <button type={type} className={className + " btn btn-" + color}>
       {children}
     </button>
   </Link>
 );
 
-const GradientButton = ({ color, children, className }: ButtonProps) => (
-  <button type="button" className={className + " btn bg-gradient-" + color}>
+const GradientButton = ({
+  color,
+  children,
+  className,
+  type = "button",
+  ...props
+}: ButtonProps) => (
+  <button type={type} className={className + " btn bg-gradient-" + color}>
     {children}
   </button>
 );
@@ -37,16 +57,22 @@ const LinkGradientButton = ({
   children,
   href,
   className,
+  type = "button",
 }: LinkButtonProps) => (
   <Link href={href} passHref>
-    <button type="button" className={className + " btn bg-gradient-" + color}>
+    <button type={type} className={className + " btn bg-gradient-" + color}>
       {children}
     </button>
   </Link>
 );
 
-const OutlineButton = ({ color, children, className }: ButtonProps) => (
-  <button type="button" className={className + " btn btn-outline-" + color}>
+const OutlineButton = ({
+  color,
+  children,
+  className,
+  type = "button",
+}: ButtonProps) => (
+  <button type={type} className={className + " btn btn-outline-" + color}>
     {children}
   </button>
 );
@@ -56,9 +82,10 @@ const LinkOutlineButton = ({
   children,
   href,
   className,
+  type = "button",
 }: LinkButtonProps) => (
   <Link href={href} passHref>
-    <button type="button" className={className + " btn btn-outline-" + color}>
+    <button type={type} className={className + " btn btn-outline-" + color}>
       {children}
     </button>
   </Link>
