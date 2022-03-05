@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": ["get"],
-      "route": "{collection}"
+      "route": "{partitionKey}/{collection}"
     },
     {
       "type": "http",
@@ -20,7 +20,7 @@
       "databaseName": "ChsPride",
       "collectionName": "{collection}",
       "connectionStringSetting": "CosmosDbConnectionString",
-      "partitionKey": "chspride"
+      "sqlQuery": "SELECT * FROM c where c.envId = {partitionKey}"
     }
   ]
 }

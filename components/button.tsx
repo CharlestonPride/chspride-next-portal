@@ -20,8 +20,13 @@ const Button = ({
   children,
   className,
   type = "button",
+  onClick,
 }: ButtonProps) => (
-  <button type={type} className={className + " btn btn-" + color}>
+  <button
+    type={type}
+    className={className + " btn btn-" + color}
+    onClick={onClick}
+  >
     {children}
   </button>
 );
@@ -45,9 +50,14 @@ const GradientButton = ({
   children,
   className,
   type = "button",
+  onClick,
   ...props
 }: ButtonProps) => (
-  <button type={type} className={className + " btn bg-gradient-" + color}>
+  <button
+    type={type}
+    className={className + " btn bg-gradient-" + color}
+    onClick={onClick}
+  >
     {children}
   </button>
 );
@@ -71,8 +81,13 @@ const OutlineButton = ({
   children,
   className,
   type = "button",
+  onClick,
 }: ButtonProps) => (
-  <button type={type} className={className + " btn btn-outline-" + color}>
+  <button
+    type={type}
+    className={className + " btn btn-outline-" + color}
+    onClick={onClick}
+  >
     {children}
   </button>
 );

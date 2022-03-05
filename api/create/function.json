@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": ["post"],
-      "route": "{collection}"
+      "route": "{partitionKey}/{collection}"
     },
     {
       "type": "http",
@@ -21,7 +21,7 @@
       "collectionName": "{collection}",
       "createIfNotExists": false,
       "connectionStringSetting": "CosmosDbConnectionString",
-      "partitionKey": "chspride"
+      "partitionKey": "{partitionKey}"
     }
   ]
 }

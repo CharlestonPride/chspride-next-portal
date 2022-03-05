@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Badge, Card, Col, Row, Table } from "react-bootstrap";
 import { GradientButton, LinkGradientButton } from "../../components/button";
 import Layout from "../../modules/layout/layout";
+import { TeamService } from "../../services/teamService";
 import { TeamMember } from "../../types/teamMember";
 
 const Head = () => {
@@ -66,6 +67,7 @@ const TeamRow = ({
 
 const Team = () => {
   const router = useRouter();
+  const teamService = new TeamService();
   const [data, setData] = useState<TeamMember[]>();
 
   useEffect(() => {
@@ -75,12 +77,7 @@ const Team = () => {
   }, []);
 
   async function getData() {
-    try {
-      return await (await fetch(`/api/Directors`)).json();
-    } catch (error) {
-      console.error("No team members found");
-      return undefined;
-    }
+    return teamService.getTeam();
   }
 
   const [showInactive, setShowInactive] = useState(false);
@@ -123,7 +120,7 @@ const Team = () => {
                   </tbody>
                 </Table>
               </div>
-              {/* <GradientButton
+              <GradientButton
                 color="primary"
                 onClick={() => {
                   router.push({
@@ -133,7 +130,7 @@ const Team = () => {
                 }}
               >
                 Add
-              </GradientButton> */}
+              </GradientButton>
             </Card.Body>
           </Card>
         </Col>

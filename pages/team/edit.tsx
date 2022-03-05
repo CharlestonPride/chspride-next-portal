@@ -3,7 +3,7 @@ import Layout from "../../modules/layout/layout";
 import { Formik, Form } from "formik";
 import { useState, useEffect } from "react";
 import { TeamMember } from "../../types/teamMember";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Row, Toast, ToastContainer } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   TextInput,
@@ -11,14 +11,23 @@ import {
   TextArea,
   Select,
   HelpText,
+  UsernameInput,
 } from "../../components/form";
 import { GradientButton, LinkButton } from "../../components/button";
+import { TeamService } from "../../services/teamService";
 
-const NameSection = () => {
+const NameSection = ({ disabled }) => {
   return (
     <Card>
       <Card.Title>Name</Card.Title>
       <Card.Body>
+        <Row>
+          <UsernameInput
+            label="Username"
+            name="id"
+            disabled={disabled}
+          ></UsernameInput>
+        </Row>
         <Row>
           <TextInput label="Prefix" name="prefix" type="text" />
 
@@ -116,9 +125,12 @@ const PronounsSection = () => {
 
 const Edit = () => {
   const router = useRouter();
+  const teamService = new TeamService();
   const { id } = router.query;
 
   const [data, setData] = useState<TeamMember>();
+  const [isNew, SetNew] = useState(id && id === "new");
+  const [showSaved, setShowSaved] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -129,12 +141,10 @@ const Edit = () => {
   async function getData() {
     if (!id) {
       router.push("/team");
-    }
-    try {
-      return await (await fetch(`/api/Directors/${id}`)).json();
-    } catch (error) {
-      console.error("No team members found");
-      return undefined;
+    } else if (id === "new") {
+      return teamService.getNew();
+    } else {
+      return teamService.getById(id as string);
     }
   }
 
@@ -149,19 +159,18 @@ const Edit = () => {
                 ...data,
               }}
               onSubmit={async (values) => {
-                fetch(`/api/Directors/${id}`, {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(values),
-                }).then((response) => response.json());
+                await (isNew
+                  ? teamService.saveNew(values as TeamMember)
+                  : teamService.save(values as TeamMember)
+                ).then(() => {
+                  setShowSaved(true);
+                });
               }}
             >
               <Form>
                 <Row>
                   <Col lg="6">
-                    <NameSection />
+                    <NameSection disabled={!isNew} />
                   </Col>
                   <Col lg="6">
                     <PositionSection />
@@ -190,6 +199,20 @@ const Edit = () => {
           )}
         </Col>
       </Row>
+      <ToastContainer position="bottom-end">
+        <Toast
+          onClose={() => setShowSaved(false)}
+          show={showSaved}
+          delay={3000}
+          autohide
+          bg="success"
+        >
+          <Toast.Header>
+            <strong className="me-auto">Saved</strong>
+          </Toast.Header>
+          <Toast.Body>Your edits were successfully saved.</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </Layout>
   );
 };

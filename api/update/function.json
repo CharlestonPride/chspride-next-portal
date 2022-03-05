@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": ["put"],
-      "route": "{collection}/{id}"
+      "route": "{partitionKey}/{collection}/{id}"
     },
     {
       "type": "http",
@@ -21,7 +21,7 @@
       "collectionName": "{collection}",
       "connectionStringSetting": "CosmosDbConnectionString",
       "id": "{id}",
-      "partitionKey": "chspride"
+      "partitionKey": "{partitionKey}"
     },
     {
       "type": "cosmosDB",
@@ -31,7 +31,7 @@
       "collectionName": "{collection}",
       "createIfNotExists": false,
       "connectionStringSetting": "CosmosDbConnectionString",
-      "partitionKey": "chspride"
+      "partitionKey": "{partitionKey}"
     }
   ]
 }
