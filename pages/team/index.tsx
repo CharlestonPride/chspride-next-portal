@@ -10,11 +10,11 @@ const Head = () => {
   return (
     <thead>
       <tr>
+        <th></th>
         <th>Name</th>
         <th>Title</th>
         <th>Type</th>
         <th>Status</th>
-        <th></th>
       </tr>
     </thead>
   );
@@ -29,6 +29,14 @@ const TeamRow = ({
 }) => {
   return (
     <tr>
+      <td className="align-middle">
+        <button
+          className="btn btn-link mb-0"
+          onClick={() => onClick(teamMember.id)}
+        >
+          Edit
+        </button>
+      </td>
       <td>
         <div className="d-flex flex-column justify-content-center">
           <h6 className="mb-0 ">{`${teamMember.firstName} ${teamMember.lastName}`}</h6>
@@ -52,14 +60,6 @@ const TeamRow = ({
         ) : (
           <Badge bg="secondary">Not Active</Badge>
         )}
-      </td>
-      <td className="align-middle">
-        <button
-          className="btn btn-link mb-0"
-          onClick={() => onClick(teamMember.id)}
-        >
-          Edit
-        </button>
       </td>
     </tr>
   );
@@ -129,7 +129,7 @@ const Team = () => {
                   });
                 }}
               >
-                Add
+                Add new
               </GradientButton>
             </Card.Body>
           </Card>
