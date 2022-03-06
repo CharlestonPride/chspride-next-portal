@@ -27,7 +27,7 @@
       "type": "sendGrid",
       "direction": "out",
       "name": "$return",
-      "apiKey": "AzureWebJobsSendGridApiKey",
+      "apiKey": "SendGridApiKey",
       "to": "peter.bingel@charlestonpride.org",
       "from": "support@charlestonpride.org",
       "subject": "Update to {collection}",
