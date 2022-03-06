@@ -32,6 +32,16 @@
       "createIfNotExists": false,
       "connectionStringSetting": "CosmosDbConnectionString",
       "partitionKey": "{partitionKey}"
+    },
+    {
+      "type": "sendGrid",
+      "direction": "out",
+      "name": "$return",
+      "apiKey": "AzureWebJobsSendGridApiKey",
+      "to": "peter.bingel@charlestonpride.org",
+      "from": "support@charlestonpride.org",
+      "subject": "Update to {collection}",
+      "text": "An update was made to {partitionKey} {collection}, please check and redeploy if necessary."
     }
   ]
 }
