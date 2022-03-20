@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Badge, Card, Col, Row, Table } from "react-bootstrap";
-import { GradientButton, LinkGradientButton } from "../../components/button";
+import { GradientButton } from "../../components/button";
 import Layout from "../../modules/layout/layout";
 import { TeamService } from "../../services/teamService";
 import { TeamMember } from "../../types/teamMember";
@@ -77,7 +77,7 @@ const Team = () => {
   }, []);
 
   async function getData() {
-    return teamService.getTeam();
+    return teamService.getAll();
   }
 
   const [showInactive, setShowInactive] = useState(false);
@@ -120,6 +120,11 @@ const Team = () => {
                   </tbody>
                 </Table>
               </div>
+
+              {!data?.some((a) => showInactive || a.active) && (
+                <div className="text-center">No rows to display</div>
+              )}
+
               <GradientButton
                 color="primary"
                 onClick={() => {

@@ -3,7 +3,7 @@ import Layout from "../../modules/layout/layout";
 import { Formik, Form } from "formik";
 import { useState, useEffect } from "react";
 import { TeamMember } from "../../types/teamMember";
-import { Card, Col, Row, Toast, ToastContainer } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   TextInput,
@@ -124,6 +124,7 @@ const PronounsSection = () => {
 };
 
 const Edit = () => {
+  const parentRoute = "/team";
   const router = useRouter();
   const teamService = new TeamService();
   const { id } = router.query;
@@ -131,6 +132,18 @@ const Edit = () => {
   const [data, setData] = useState<TeamMember>();
   const [isNew, SetNew] = useState(id && id === "new");
   const [showSaved, setShowSaved] = useState(false);
+  const [showError, setShowError] = useState(false);
+
+  const savedModalClosed = (close?: boolean) => {
+    setShowSaved(false);
+    if (close) {
+      router.push(parentRoute);
+    }
+  };
+
+  const errorModalClosed = () => {
+    setShowError(false);
+  };
 
   useEffect(() => {
     (async () => {
@@ -140,7 +153,7 @@ const Edit = () => {
 
   async function getData() {
     if (!id) {
-      router.push("/team");
+      router.push(parentRoute);
     } else if (id === "new") {
       return teamService.getNew();
     } else {
@@ -162,9 +175,11 @@ const Edit = () => {
                 await (isNew
                   ? teamService.saveNew(values as TeamMember)
                   : teamService.save(values as TeamMember)
-                ).then(() => {
-                  setShowSaved(true);
-                });
+                )
+                  .then(() => {
+                    setShowSaved(true);
+                  })
+                  .catch(() => setShowError(true));
               }}
             >
               <Form>
@@ -174,16 +189,15 @@ const Edit = () => {
                   </Col>
                   <Col lg="6">
                     <PositionSection />
-                  </Col>
-                  <Col lg="6">
-                    <BiographySection />
-                  </Col>
-                  <Col lg="6">
                     <PronounsSection />
                   </Col>
+                  <Col>
+                    <BiographySection />
+                  </Col>
                 </Row>
+
                 <div className="float-end mt-3">
-                  <LinkButton color="default" href="/team">
+                  <LinkButton color="default" href={parentRoute}>
                     Cancel
                   </LinkButton>
                   <GradientButton
@@ -199,20 +213,32 @@ const Edit = () => {
           )}
         </Col>
       </Row>
-      <ToastContainer position="bottom-end">
-        <Toast
-          onClose={() => setShowSaved(false)}
-          show={showSaved}
-          delay={3000}
-          autohide
-          bg="success"
-        >
-          <Toast.Header>
-            <strong className="me-auto">Saved</strong>
-          </Toast.Header>
-          <Toast.Body>Your edits were successfully saved.</Toast.Body>
-        </Toast>
-      </ToastContainer>
+      <Modal onClose={() => setShowSaved(false)} show={showSaved}>
+        <Modal.Header>
+          <strong className="me-auto">Saved</strong>
+        </Modal.Header>
+        <Modal.Body>Your edits were successfully saved.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => savedModalClosed(false)}>
+            Ok
+          </Button>
+          <Button variant="primary" onClick={() => savedModalClosed(true)}>
+            Back to teams
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal onClose={() => setShowError(false)} show={showError}>
+        <Modal.Header>
+          <strong className="me-auto">An error occurred</strong>
+        </Modal.Header>
+        <Modal.Body>There was an error saving your changes.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={errorModalClosed}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Layout>
   );
 };

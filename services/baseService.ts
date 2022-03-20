@@ -1,10 +1,16 @@
-import { TeamMember } from "../types/teamMember";
+export interface BaseRecord {
+  id: string;
+  envId: string;
+}
 
-export class TeamService {
-  readonly collectionName = "Directors";
+export abstract class BaseService<T extends BaseRecord> {
+  public constructor(collectionName: string) {
+    this.collectionName = collectionName;
+  }
+  private collectionName: string;
   readonly envId = process.env.NEXT_PUBLIC_ENV_ID;
 
-  async getTeam(): Promise<TeamMember[]> {
+  async getAll(): Promise<T[]> {
     try {
       return await (
         await fetch(
@@ -16,7 +22,7 @@ export class TeamService {
     }
   }
 
-  async getById(id: string): Promise<TeamMember> {
+  async getById(id: string): Promise<T> {
     try {
       return await (
         await fetch(`/api/${this.envId}/${this.collectionName}/${id}`)
@@ -26,36 +32,36 @@ export class TeamService {
     }
   }
 
-  async save(teamMember: TeamMember): Promise<void> {
+  async save(record: T): Promise<void> {
     return await fetch(
-      `/api/${this.envId}/${this.collectionName}/${teamMember.id}`,
+      `/api/${this.envId}/${this.collectionName}/${record.id}`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(teamMember),
+        body: JSON.stringify(record),
       }
     ).then((response) => {
       return;
     });
   }
 
-  async saveNew(teamMember: TeamMember): Promise<void> {
+  async saveNew(record: T): Promise<void> {
     return await fetch(`/api/${this.envId}/${this.collectionName}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(teamMember),
+      body: JSON.stringify(record),
     }).then((response) => {
       return;
     });
   }
 
-  getNew(): TeamMember {
+  getNew(): T {
     return {
       envId: this.envId,
-    } as TeamMember;
+    } as T;
   }
 }

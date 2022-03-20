@@ -1,6 +1,6 @@
-export interface TeamMember {
-  id: string;
-  envId: string;
+import { BaseRecord } from "../services/baseService";
+
+export interface TeamMember extends BaseRecord {
   active: boolean;
   prefix: string;
   firstName: string;
