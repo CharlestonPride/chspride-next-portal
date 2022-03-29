@@ -12,6 +12,14 @@ export interface StatusInfo {
 export const ApplicationStatusInfos: StatusInfo[] = [
   { status: "new", name: "New", description: "New applicant", badge: "info" },
   {
+    status: "pending",
+    name: "Pending",
+    description:
+      "Application under consideration but board not actively recruiting",
+    badge: "info",
+  },
+
+  {
     status: "contacted",
     name: "Contacted",
     description: "Applicant has been contacted to schedule interview",
